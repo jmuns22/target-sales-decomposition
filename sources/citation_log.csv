@@ -1,7 +1,7 @@
 ﻿metric,value,fiscal_period,source_type,url,date_accessed,notes
 comp_sales_growth,3.8%,Q2 FY2026,10-Q filing,https://www.sec.gov/Archives/edgar/data/0000027419/000002741926000034/a2026q2ex-99.htm,2026-09-03,current quarter comp sales change
-comp_sales_growth,-1.9%,Q2 FY2025,10-Q filing,https://www.sec.gov/Archives/edgar/data/0000027419/000002741926000034/a2026q2ex-99.htm,2026-09-03,prior year comparison quarter, same filing
-tariff_refund, pretax,Q2 FY2026,earnings report,https://www.startribune.com/target-tariffs-refund-trump-earnings-profit-eps-sales/601880010,2026-09-03,one-time benefit inflating EPS not revenue
+comp_sales_growth,-1.9%,Q2 FY2025,10-Q filing,https://www.sec.gov/Archives/edgar/data/0000027419/000002741926000034/a2026q2ex-99.htm,2026-09-03,"prior year comparison quarter, same filing"
+tariff_refund,$994M pretax,Q2 FY2026,earnings report,https://www.startribune.com/target-tariffs-refund-trump-earnings-profit-eps-sales/601880010,2026-09-03,one-time benefit inflating EPS not revenue
 boycott_start,Feb 2025,FY2025,news,https://triplepundit.com/2026/target-boycott-dei-store-experience/,2026-09-03,Rev. Bryant DEI boycott launch
-boycott_end_announced,Mar 11 2026,FY2026,news,https://www.axios.com/2026/03/11/target-boycott-ends-dei,2026-09-03,organizers announced end, unclear actual demand impact timing
-ceo_transition,Feb 2026,FY2026,news/8-K,https://triplepundit.com/2026/target-boycott-dei-store-experience/,2026-09-03,Cornell steps back Feb 2026, Fiddelke becomes CEO
+boycott_end_announced,Mar 11 2026,FY2026,news,https://www.axios.com/2026/03/11/target-boycott-ends-dei,2026-09-03,"organizers announced end, unclear actual demand impact timing"
+ceo_transition,Feb 2026,FY2026,news/8-K,https://triplepundit.com/2026/target-boycott-dei-store-experience/,2026-09-03,"Cornell steps back Feb 2026, Fiddelke becomes CEO"
