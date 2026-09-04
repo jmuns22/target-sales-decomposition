@@ -1,0 +1,59 @@
+{
+  "bridge_1_slope_chart": {
+    "chart_type": "slope",
+    "description": "Target vs Walmart comp sales, prior quarter to current quarter. Slope steepness difference IS the diff-in-diff finding.",
+    "series": [
+      {
+        "label": "Target",
+        "points": [
+          {
+            "period": "Q2 FY2025",
+            "value_pct": -1.9
+          },
+          {
+            "period": "Q2 FY2026",
+            "value_pct": 3.8
+          }
+        ]
+      },
+      {
+        "label": "Walmart",
+        "points": [
+          {
+            "period": "Q2 FY26 (WMT)",
+            "value_pct": 4.6
+          },
+          {
+            "period": "Q2 FY27 (WMT)",
+            "value_pct": 2.6
+          }
+        ]
+      }
+    ],
+    "headline_stat": {
+      "label": "Diff-in-diff (Target relative outperformance)",
+      "value_pp": 7.7
+    }
+  },
+  "bridge_2_waterfall": {
+    "chart_type": "waterfall",
+    "description": "Target Q2 FY2026 EPS growth decomposed: headline growth torn down into one-time refund vs organic components.",
+    "steps": [
+      {
+        "label": "Headline EPS growth",
+        "value_pp": 100.3,
+        "type": "total"
+      },
+      {
+        "label": "Less: tariff refund benefit",
+        "value_pp": -80.3,
+        "type": "decrease"
+      },
+      {
+        "label": "Organic EPS growth",
+        "value_pp": 20.0,
+        "type": "total"
+      }
+    ]
+  }
+}
