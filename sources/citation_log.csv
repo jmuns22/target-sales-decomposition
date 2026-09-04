@@ -1,4 +1,4 @@
-﻿metric,value,fiscal_period,source_type,url,date_accessed,notes
+metric,value,fiscal_period,source_type,url,date_accessed,notes
 comp_sales_growth,3.8%,Q2 FY2026,10-Q filing,https://www.sec.gov/Archives/edgar/data/0000027419/000002741926000034/a2026q2ex-99.htm,2026-09-03,current quarter comp sales change
 comp_sales_growth,-1.9%,Q2 FY2025,10-Q filing,https://www.sec.gov/Archives/edgar/data/0000027419/000002741926000034/a2026q2ex-99.htm,2026-09-03,"prior year comparison quarter, same filing"
 tariff_refund,$994M pretax,Q2 FY2026,earnings report,https://www.startribune.com/target-tariffs-refund-trump-earnings-profit-eps-sales/601880010,2026-09-03,one-time benefit inflating EPS not revenue
@@ -13,7 +13,7 @@ comp_sales_growth,2.2%,FY2022 (annual),10-K / investor PDF,https://corporate.tar
 comp_sales_growth,-3.7%,FY2023 (annual),10-K / investor PDF,https://corporate.target.com/getmedia/6334ca3a-ddb9-4628-bb9f-a6209754562b/Comparable-Sales-Q1-2025.pdf,2026-09-04,"Target annual comp sales"
 comp_sales_growth,0.1%,FY2024 (annual),10-K / investor PDF,https://corporate.target.com/getmedia/6334ca3a-ddb9-4628-bb9f-a6209754562b/Comparable-Sales-Q1-2025.pdf,2026-09-04,"Target annual comp sales"
 comp_sales_growth,-2.6%,FY2025 (annual),corporate overview page,https://corporate.target.com/investors/corporate-overview,2026-09-04,"Target annual comp sales"
-walmart_comp_sales_growth,6.8%,FY2022 (annual),earnings report,https://www.supermarketnews.com/finance/walmart-turns-in-strong-u-s-performance-for-fiscal-2022,2026-09-04,"Walmart US annual comp sales, with fuel"
-walmart_comp_sales_growth,7.0%,FY2023 (annual),10-K,https://www.sec.gov/Archives/edgar/data/104169/000010416924000056/wmt-20240131.htm,2026-09-04,"Walmart US annual comp sales, with fuel"
-walmart_comp_sales_growth,5.5%,FY2024 (annual),10-K,https://www.sec.gov/Archives/edgar/data/104169/000010416925000021/wmt-20250131.htm,2026-09-04,"Walmart US annual comp sales, with fuel"
-walmart_comp_sales_growth,4.8%,FY2025 (annual),10-K,https://www.sec.gov/Archives/edgar/data/104169/000010416925000021/wmt-20250131.htm,2026-09-04,"Walmart US annual comp sales, with fuel"
+walmart_comp_sales_growth,6.4%,FY2022 (annual),earnings report,https://www.supermarketnews.com/finance/walmart-turns-in-strong-u-s-performance-for-fiscal-2022,2026-09-04,"Walmart US annual comp sales, ex-fuel, company-stated"
+walmart_comp_sales_growth,6.6%,FY2023 (annual),10-K,https://www.sec.gov/Archives/edgar/data/104169/000010416924000056/wmt-20240131.htm,2026-09-04,"Walmart US annual comp sales, ex-fuel; derived: 7.0% with-fuel minus 0.4pp fuel impact"
+walmart_comp_sales_growth,5.6%,FY2024 (annual),10-K,https://www.sec.gov/Archives/edgar/data/104169/000010416925000021/wmt-20250131.htm,2026-09-04,"Walmart US annual comp sales, ex-fuel; derived: 5.5% with-fuel minus (0.1)pp fuel impact"
+walmart_comp_sales_growth,4.9%,FY2025 (annual),10-K,https://www.sec.gov/Archives/edgar/data/104169/000010416925000021/wmt-20250131.htm,2026-09-04,"Walmart US annual comp sales, ex-fuel; derived: 4.8% with-fuel minus (0.1)pp fuel impact"
