@@ -35,7 +35,7 @@ def build_slope_chart(bridge1):
         periods = [p["period"] for p in series["points"]]
         values = [p["value_pct"] for p in series["points"]]
         fig.add_trace(go.Scatter(
-            x=["Prior Year Q2", "Current Year Q2"],
+            x=["Q2 2025", "Q2 2026"],
             y=values,
             mode="lines+markers+text",
             name=series["label"],
