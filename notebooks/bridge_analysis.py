@@ -12,6 +12,7 @@ appears, it is printed loudly, not silently ignored.
 
 import re
 import csv
+import json
 from pathlib import Path
 
 CITATION_LOG = Path(__file__).resolve().parent.parent / "sources" / "citation_log.csv"
@@ -113,7 +114,7 @@ def main():
         print("!!! ONE OR MORE MISMATCHES FOUND — DO NOT USE OUTPUT UNTIL RESOLVED !!!")
     print("=" * 70)
 
-    return {
+    results = {
         "target_swing_pp": target_swing,
         "walmart_swing_pp": walmart_swing,
         "diff_in_diff_pp": diff_in_diff,
@@ -121,6 +122,69 @@ def main():
         "eps_exrefund_pct": eps_exrefund,
         "eps_refund_contribution_pp": refund_contribution,
     }
+
+    export_chart_data(
+        target_current, target_prior, walmart_current, walmart_prior,
+        diff_in_diff, eps_headline, eps_exrefund, refund_contribution,
+    )
+
+    return results
+
+
+def export_chart_data(target_current, target_prior, walmart_current, walmart_prior,
+                       diff_in_diff, eps_headline, eps_exrefund, refund_contribution):
+    """
+    Writes data/bridge_data.json — chart-ready structures for both visuals.
+    Downstream dashboard/chart code should read this file directly.
+    Rerun this script (not hand-edit the JSON) if source numbers ever change,
+    so the JSON always stays traceable back to citation_log.csv.
+    """
+    output_path = Path(__file__).resolve().parent.parent / "data" / "bridge_data.json"
+
+    chart_data = {
+        "bridge_1_slope_chart": {
+            "chart_type": "slope",
+            "description": "Target vs Walmart comp sales, prior quarter to current quarter. "
+                            "Slope steepness difference IS the diff-in-diff finding.",
+            "series": [
+                {
+                    "label": "Target",
+                    "points": [
+                        {"period": "Q2 FY2025", "value_pct": target_prior},
+                        {"period": "Q2 FY2026", "value_pct": target_current},
+                    ],
+                },
+                {
+                    "label": "Walmart",
+                    "points": [
+                        {"period": "Q2 FY26 (WMT)", "value_pct": walmart_prior},
+                        {"period": "Q2 FY27 (WMT)", "value_pct": walmart_current},
+                    ],
+                },
+            ],
+            "headline_stat": {
+                "label": "Diff-in-diff (Target relative outperformance)",
+                "value_pp": round(diff_in_diff, 1),
+            },
+        },
+        "bridge_2_waterfall": {
+            "chart_type": "waterfall",
+            "description": "Target Q2 FY2026 EPS growth decomposed: headline growth "
+                            "torn down into one-time refund vs organic components.",
+            "steps": [
+                {"label": "Headline EPS growth", "value_pp": round(eps_headline, 1), "type": "total"},
+                {"label": "Less: tariff refund benefit", "value_pp": round(-refund_contribution, 1), "type": "decrease"},
+                {"label": "Organic EPS growth", "value_pp": round(eps_exrefund, 1), "type": "total"},
+            ],
+        },
+    }
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(chart_data, f, indent=2)
+
+    print()
+    print(f"Chart data written to: {output_path}")
 
 
 if __name__ == "__main__":
