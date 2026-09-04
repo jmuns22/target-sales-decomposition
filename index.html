@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Target FY2026 Sales Recovery — Driver Decomposition</title>
+<style>
+  :root {
+    --paper: #F6F5F2;
+    --ink: #1B2430;
+    --slate: #5B6572;
+    --red: #CC0000;
+    --amber: #9C6B1F;
+    --line: #DAD7CF;
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; margin: 0; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px 96px; }
+  header.hero { max-width: 880px; margin: 0 auto; padding: 56px 24px 32px; border-bottom: 1px solid var(--line); }
+  header.hero .eyebrow { color: var(--slate); font-size: 15px; margin-bottom: 10px; }
+  header.hero h1 { font-size: 34px; line-height: 1.25; max-width: 640px; }
+  header.hero p.dek { color: var(--slate); font-size: 17px; max-width: 620px; margin-top: 16px; }
+
+  .stat-band { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 40px 0; }
+  .stat { background: var(--card); padding: 28px; }
+  .stat .num { font-family: Georgia, serif; font-size: 40px; color: var(--red); line-height: 1; }
+  .stat .label { color: var(--slate); font-size: 14px; margin-top: 10px; max-width: 320px; }
+
+  section { margin: 56px 0; }
+  section h2 { font-size: 24px; margin-bottom: 6px; }
+  section .subhead { color: var(--slate); font-size: 15px; margin-bottom: 20px; }
+  .so-what {
+    border-left: 3px solid var(--red);
+    padding: 14px 20px;
+    margin: 20px 0;
+    background: #FBF3F3;
+    font-size: 15px;
+  }
+  .so-what strong { display: block; font-size: 13px; letter-spacing: 0.02em; color: var(--red); margin-bottom: 4px; }
+
+  .chart-frame { width: 100%; height: 520px; border: 1px solid var(--line); background: var(--card); }
+
+  details { border: 1px solid var(--line); background: var(--card); margin-top: 12px; }
+  details > summary {
+    cursor: pointer;
+    padding: 16px 20px;
+    font-family: Georgia, serif;
+    font-size: 17px;
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before { content: "+ "; color: var(--red); font-family: Georgia, serif; }
+  details[open] > summary::before { content: "– "; }
+  details .detail-body { padding: 0 20px 20px; color: var(--slate); font-size: 15px; }
+  details .detail-body table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  details .detail-body td, details .detail-body th { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+  details .detail-body th { color: var(--ink); }
+
+  .caveat { border-left: 3px solid var(--amber); padding: 10px 16px; margin-top: 16px; font-size: 14px; color: var(--slate); background: #FBF7EE; }
+
+  .limitations ul { padding-left: 20px; color: var(--slate); font-size: 15px; }
+  .limitations li { margin-bottom: 10px; }
+
+  footer { border-top: 1px solid var(--line); padding-top: 24px; margin-top: 64px; color: var(--slate); font-size: 13px; }
+  footer a { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Target Corporation — FY2026 Analysis</div>
+  <h1>Is Target's sales recovery real, or a favorable quarter dressed up by a tax refund?</h1>
+  <p class="dek">Target reported comp sales up 3.8% and EPS up 100% this quarter. This project checks both numbers against public filings, a competitor comparison, and the company's own trend — built entirely from data Target has already made public.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="stat-band">
+    <div class="stat">
+      <div class="num">7.7pp</div>
+      <div class="label">Swing in Target's sales performance relative to Walmart, year over year — from trailing to leading.</div>
+    </div>
+    <div class="stat">
+      <div class="num">~80%</div>
+      <div class="label">Share of Target's reported profit growth that came from a one-time tariff refund, not the business.</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>1. Target closed a competitive gap against Walmart</h2>
+    <p class="subhead">Comparable sales, prior quarter to current quarter, both companies</p>
+    <iframe class="chart-frame" src="dashboard/bridge1_slope_chart.html" title="Slope chart comparing Target and Walmart comp sales"></iframe>
+    <div class="so-what">
+      <strong>So what</strong>
+      A year ago Target was losing ground to Walmart; today it's ahead. Since both companies faced the same tariffs and the same economy, this points to something Target-specific working — not just a favorable market. Worth watching whether this holds for another two quarters before treating it as a durable trend.
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Most of the profit jump was a refund, not the business improving</h2>
+    <p class="subhead">Reported EPS growth, decomposed</p>
+    <iframe class="chart-frame" src="dashboard/bridge2_waterfall.html" title="Waterfall chart of EPS growth decomposition"></iframe>
+    <div class="so-what">
+      <strong>So what</strong>
+      Investors and press repeated the "profit doubled" headline. The real, repeatable improvement was closer to 20% — still strong, but leadership and analysts should anchor guidance on that number, not the refund-inflated one.
+    </div>
+  </section>
+
+  <section>
+    <h2>3. The growth is coming from more shoppers, not bigger baskets</h2>
+    <p class="subhead">Comp sales split into traffic vs. average ticket, four representative quarters</p>
+    <iframe class="chart-frame" src="dashboard/traffic_ticket_decomposition.html" title="Bar chart of traffic vs ticket contribution to comp sales"></iframe>
+    <div class="so-what">
+      <strong>So what</strong>
+      This quarter's growth is almost entirely more visits, not more spend per visit. That suggests an opportunity: basket-building tactics — bundling, cross-merchandising, targeted promotions at checkout — could convert existing traffic gains into ticket gains too, compounding the recovery rather than relying on visit growth alone.
+    </div>
+  </section>
+
+  <section>
+    <h2>Deeper analysis</h2>
+    <p class="subhead">For a technical reviewer — expand any section for methodology and full results</p>
+
+    <details>
+      <summary>Is the competitive gap statistically real? (Panel regression)</summary>
+      <div class="detail-body">
+        <p>A diff-in-difference regression on 26 real quarterly observations (2022–2026, both companies) tests whether Target's change relative to Walmart, after the boycott began, is distinguishable from normal quarter-to-quarter variation.</p>
+        <table>
+          <tr><th>Term</th><th>Estimate</th><th>p-value</th><th>95% CI</th></tr>
+          <tr><td>Target's average gap vs. Walmart (whole period)</td><td>-6.62pp</td><td>&lt;0.001</td><td>[-9.34, -3.89]</td></tr>
+          <tr><td>Post-boycott shift, both companies</td><td>-2.63pp</td><td>0.261</td><td>[-7.34, 2.09]</td></tr>
+          <tr><td>Target's relative change vs. Walmart, post-boycott</td><td>+1.92pp</td><td>0.503</td><td>[-3.93, 7.76]</td></tr>
+        </table>
+        <p><strong>Honest read:</strong> Target has significantly and durably trailed Walmart across this multi-year window — that part is statistically solid. Whether the recent narrowing is a real, lasting shift or normal noise cannot yet be confirmed with the data currently public. The point estimate is positive and consistent with the story; the confidence interval is too wide to call it proven.</p>
+        <div class="caveat">Limitation: sourced entirely from public quarterly filings; several individual quarters for both companies remain unavailable and are excluded rather than estimated.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does the recovery beat Target's own historical trend? (Forecast)</summary>
+      <div class="detail-body">
+        <p>A trend model (Holt's linear method, no seasonal component — 12 pre-boycott quarters isn't enough data to reliably estimate seasonality) was trained on Target's comp sales before the boycott and used to forecast what the following quarters "should" have looked like if nothing unusual happened.</p>
+        <table>
+          <tr><th>Quarter</th><th>Forecast</th><th>Actual</th><th>Gap</th></tr>
+          <tr><td>Q1 FY2025</td><td>1.28%</td><td>-3.80%</td><td>-5.08pp</td></tr>
+          <tr><td>Q2 FY2025</td><td>1.20%</td><td>-1.90%</td><td>-3.10pp</td></tr>
+          <tr><td>Q3 FY2025</td><td>1.13%</td><td>-2.70%</td><td>-3.83pp</td></tr>
+          <tr><td>Q2 FY2026</td><td>1.08%</td><td>3.80%</td><td>+2.72pp</td></tr>
+        </table>
+        <p><strong>Honest read:</strong> Three consecutive quarters underperformed Target's own trend during the boycott window, then the most recent quarter beat it. The pattern is directionally consistent with a real drag followed by a real recovery, but every actual value falls inside the model's 95% band — none of these gaps clear statistical significance individually. Reported as a supporting pattern, not proof.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>A/B testing methodology demonstration</summary>
+      <div class="detail-body">
+        <p><strong>Not Target data.</strong> Target's internal experiment results aren't public. This module uses a real 588,000-row public marketing dataset (ad-exposure vs. control) to demonstrate the statistical workflow: significance testing, effect size, and power analysis.</p>
+        <table>
+          <tr><th>Metric</th><th>Result</th></tr>
+          <tr><td>Two-proportion z-test</td><td>p &lt; 0.001 (significant)</td></tr>
+          <tr><td>Effect size (Cohen's h)</td><td>0.053 — small</td></tr>
+          <tr><td>Relative lift</td><td>+43.1%</td></tr>
+          <tr><td>Statistical power at observed effect</td><td>1.0000</td></tr>
+        </table>
+        <p><strong>Honest read:</strong> statistical significance and practical significance disagree here on purpose, to show the distinction. At 588K rows, even a small absolute gap becomes statistically certain — the relative lift figure alone would overstate the finding without the effect-size context.</p>
+      </div>
+    </details>
+
+  </section>
+
+  <section class="limitations">
+    <h2>Limitations</h2>
+    <ul>
+      <li>All figures sourced from public filings only — Target's internal store-level, SKU-level, and customer-level data would materially sharpen this analysis and isn't available here.</li>
+      <li>The competitive-gap regression (n=26) cannot statistically confirm the recent narrowing is a lasting trend rather than noise; the confidence interval is wide.</li>
+      <li>The forecast model uses no seasonal component, since 12 pre-boycott quarters can't reliably support one — treat its uncertainty band as a lower bound, not a tight estimate.</li>
+      <li>Several individual quarters (both companies) remain unlogged due to public sourcing gaps; these are stated openly rather than filled with estimates.</li>
+      <li>The A/B testing module uses public marketing data, not a Target-run experiment — it demonstrates method, not access to Target's actual test results.</li>
+      <li>The boycott's demand impact is inferred through a competitor comparison, not directly measured — no source independently quantifies its dollar impact on Target's revenue.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Why I built this</h2>
+    <p style="color: var(--slate); font-size: 15px;">I don't have access to Target's internal data or experimentation tools. This project is what's possible to build from public filings alone — meant to show how I'd approach the kind of question your analytics team handles day to day, not to claim I solved something Target didn't already know internally.</p>
+  </section>
+
+  <footer>
+    Built from Target and Walmart public SEC filings, earnings releases, and a public marketing dataset (Kaggle). Full source code, citation log, and methodology at <a href="https://github.com/jmuns22/target-sales-decomposition">github.com/jmuns22/target-sales-decomposition</a>.
+  </footer>
+
+</div>
+</body>
+</html>
