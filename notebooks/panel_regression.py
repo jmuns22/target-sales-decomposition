@@ -24,9 +24,18 @@ except ImportError:
 
 CITATION_LOG = Path(__file__).resolve().parent.parent / "sources" / "citation_log.csv"
 
-# FY2025 is the first fiscal year the boycott was active for a meaningful
-# stretch (started Feb 2025, near the start of Target's fiscal year).
-POST_BOYCOTT_YEARS = {"FY2025"}
+# Boycott began Feb 2025. Post-boycott quarters: Target's Q1 FY2025 onward,
+# Walmart's Q1 FY2026 onward (their fiscal year is offset by one calendar
+# year in naming vs Target's -- Walmart "FY2026" and Target "FY2025" cover
+# the same real-world calendar window here).
+POST_BOYCOTT_TARGET_QUARTERS = {
+    "Q1 FY2025", "Q2 FY2025", "Q3 FY2025", "Q4 FY2025",
+    "Q1 FY2026", "Q2 FY2026", "Q3 FY2026", "Q4 FY2026",
+}
+POST_BOYCOTT_WALMART_QUARTERS = {
+    "Q1 FY2026", "Q2 FY2026", "Q3 FY2026", "Q4 FY2026",
+    "Q1 FY2027", "Q2 FY2027", "Q3 FY2027", "Q4 FY2027",
+}
 
 
 def pct_to_float(value_str):
@@ -36,55 +45,65 @@ def pct_to_float(value_str):
     return float(match.group(1))
 
 
-def load_annual_panel():
+def load_quarterly_panel():
     with open(CITATION_LOG, newline="", encoding="utf-8-sig") as f:
         rows = list(csv.DictReader(f))
 
     records = []
     for r in rows:
-        if "(annual)" not in r["fiscal_period"]:
+        if r["metric"] not in ("comp_sales_growth", "walmart_comp_sales_growth"):
             continue
-        year_match = re.search(r"FY(\d{4})", r["fiscal_period"])
-        if not year_match:
-            continue
-        fiscal_year = f"FY{year_match.group(1)}"
+        if "(annual)" in r["fiscal_period"]:
+            continue  # annual rows excluded -- quarterly grain only
+
+        # Extract a clean "Q# FY####" label from the fiscal_period text,
+        # ignoring any trailing parenthetical naming notes.
+        q_match = re.match(r"(Q[1-4] FY\d{4})", r["fiscal_period"].strip())
+        if not q_match:
+            continue  # skip anything that doesn't cleanly parse (e.g. EPS rows)
+        quarter_label = q_match.group(1)
 
         if r["metric"] == "comp_sales_growth":
             company = "Target"
-        elif r["metric"] == "walmart_comp_sales_growth":
-            company = "Walmart"
+            is_post = quarter_label in POST_BOYCOTT_TARGET_QUARTERS
         else:
-            continue
+            company = "Walmart"
+            is_post = quarter_label in POST_BOYCOTT_WALMART_QUARTERS
 
         records.append({
-            "fiscal_year": fiscal_year,
+            "quarter": quarter_label,
             "company": company,
             "comp_sales": pct_to_float(r["value"]),
+            "post": int(is_post),
         })
 
     return pd.DataFrame(records)
 
 
 def main():
-    df = load_annual_panel()
+    df = load_quarterly_panel()
 
     if df.empty:
         raise SystemExit(
-            "No annual rows found. Check that citation_log.csv has rows "
-            "with '(annual)' in the fiscal_period column."
+            "No quarterly rows found. Check citation_log.csv formatting."
         )
 
     df["is_Target"] = (df["company"] == "Target").astype(int)
-    df["post"] = df["fiscal_year"].isin(POST_BOYCOTT_YEARS).astype(int)
 
     print("=" * 70)
-    print("PANEL DATA USED")
+    print("PANEL DATA USED (quarterly)")
     print("=" * 70)
-    print(df.sort_values(["fiscal_year", "company"]).to_string(index=False))
+    print(df.sort_values(["company", "quarter"]).to_string(index=False))
     print()
-    print(f"n = {len(df)} observations "
-          f"({df['company'].nunique()} companies x {df['fiscal_year'].nunique()} years)")
-    print(f"Post-boycott years included: {sorted(POST_BOYCOTT_YEARS)}")
+    print(f"n = {len(df)} observations")
+    print(f"  Target quarters: {df[df['company']=='Target'].shape[0]}")
+    print(f"  Walmart quarters: {df[df['company']=='Walmart'].shape[0]}")
+    print(f"  Post-boycott observations: {df['post'].sum()}")
+    print(f"  Pre-boycott observations: {(df['post']==0).sum()}")
+    print()
+    print("NOTE: this panel has known gaps (see README/citation_log for which")
+    print("quarters are missing) -- it is not a complete, evenly-balanced panel.")
+    print("Treat results as indicative given current public data, not final.")
     print()
 
     model = smf.ols("comp_sales ~ is_Target * post", data=df).fit()
