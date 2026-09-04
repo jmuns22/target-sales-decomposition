@@ -10,6 +10,7 @@ bridge_data.json, then rerun this script.
 """
 
 import json
+import re
 from pathlib import Path
 import plotly.graph_objects as go
 
@@ -95,11 +96,61 @@ def build_waterfall_chart(bridge2):
     print(f"Bridge 2 waterfall written to: {out_path}")
 
 
+def build_traffic_ticket_chart():
+    import csv as csv_module
+
+    citation_log_path = Path(__file__).resolve().parent.parent / "sources" / "citation_log.csv"
+    with open(citation_log_path, encoding="utf-8-sig") as f:
+        rows = list(csv_module.DictReader(f))
+
+    traffic_by_q = {}
+    ticket_by_q = {}
+    for r in rows:
+        if r["metric"] not in ("traffic_pct", "ticket_pct"):
+            continue
+        q_match = re.match(r"(Q[1-4] FY\d{4})", r["fiscal_period"].strip())
+        if not q_match:
+            continue
+        label = q_match.group(1)
+        val = float(re.search(r"(-?\d+\.?\d*)%", r["value"]).group(1))
+        if r["metric"] == "traffic_pct":
+            traffic_by_q[label] = val
+        elif r["metric"] == "ticket_pct":
+            ticket_by_q[label] = val
+
+    quarters = sorted(
+        set(traffic_by_q) & set(ticket_by_q),
+        key=lambda q: (q.split()[1], q.split()[0])
+    )
+    traffic_vals = [traffic_by_q[q] for q in quarters]
+    ticket_vals = [ticket_by_q[q] for q in quarters]
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=quarters, y=traffic_vals, name="Traffic (more shoppers)", marker_color=TARGET_RED))
+    fig.add_trace(go.Bar(x=quarters, y=ticket_vals, name="Avg. ticket (bigger baskets)", marker_color=NEUTRAL_GRAY))
+
+    fig.update_layout(
+        title="Target Comp Sales: Traffic vs. Ticket Drivers"
+              "<br><sub>Q2 FY2026 growth was almost entirely more shoppers, not bigger baskets</sub>",
+        yaxis_title="Contribution to Comp Sales (percentage points)",
+        barmode="relative",
+        template="plotly_white",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        width=800,
+        height=500,
+    )
+
+    out_path = OUTPUT_DIR / "traffic_ticket_decomposition.html"
+    fig.write_html(out_path)
+    print(f"Traffic/ticket decomposition chart written to: {out_path}")
+
+
 def main():
     data = load_data()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     build_slope_chart(data["bridge_1_slope_chart"])
     build_waterfall_chart(data["bridge_2_waterfall"])
+    build_traffic_ticket_chart()
 
 
 if __name__ == "__main__":
