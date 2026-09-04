@@ -131,9 +131,11 @@ def main():
             print("  Statistically significant at the 5% level.")
         else:
             print("  NOT statistically significant at the 5% level.")
-            print("  With n=8 and only 1 post-period year, this is expected --")
-            print("  state this honestly rather than treating the point estimate")
-            print("  as proof. More post-boycott years of data would narrow this.")
+            print(f"  With n={len(df)} observations and "
+                  f"{df['post'].sum()} post-boycott observations, the")
+            print("  confidence interval is wide. State this honestly rather than")
+            print("  treating the point estimate as proof. More post-boycott")
+            print("  quarters, as they're reported, would narrow this further.")
     else:
         print("  Could not extract interaction term -- check model specification.")
 
